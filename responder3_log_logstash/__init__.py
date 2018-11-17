@@ -31,7 +31,7 @@ class logstashHandler(LoggerExtensionTask):
 					if isinstance(msg, RemoteLog):
 						data = msg.to_dict()
 						data['logsource'] = 'REMOTE'
-						data['log_obj']['logtype'] = logobj2type_inv[type(msg)].name
+						data['log_obj']['logtype'] = logobj2type_inv[type(msg.log_obj)].name
 					else:
 						data = msg.to_dict()
 						data['logsource'] = 'LOCAL'
