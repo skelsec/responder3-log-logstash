@@ -36,9 +36,15 @@ class logstashHandler(LoggerExtensionTask):
 						data = msg.to_dict()
 						data['logsource'] = 'LOCAL'
 						data['logtype'] = logobj2type_inv[type(msg)].name
-					writer.write(json.dumps(data, cls=UniversalEncoder).encode() + b'\r\n')
-					await writer.drain()
 
+					try:
+						logline = json.dumps(data, cls=UniversalEncoder).encode() + b'\r\n'
+					except:
+						await self.logger.exception()
+					else:
+						writer.write()
+
+						
 			except Exception as e:
 				await self.logger.exception()
 
