@@ -4,6 +4,7 @@ import traceback
 
 from responder3.core.logging.logtask import LoggerExtensionTask
 from responder3.core.logging.logger import Logger, r3exception
+from responder3.core.logging.log_objects import *
 
 		
 class logstashHandler(LoggerExtensionTask):
@@ -21,14 +22,25 @@ class logstashHandler(LoggerExtensionTask):
 	async def main(self):
 		while True:
 			try:
+				await self.logger.info('Connecting to LogStash')
 				reader, writer = await asyncio.open_connection(self.logstash_ip, self.logstash_port)
+				await self.logger.info('Connected to LogStash!')
 				while not reader.at_eof():
 					msg = await self.result_queue.get()
-					writer.write(msg.to_json())
+					if isinstance(msg, RemoteLog):
+						data = msg.to_dict()
+						data['logsource'] = 'REMOTE'
+						data['log_obj']['logtype'] = logobj2type_inv[type(msg)].name
+					else:
+						data = msg.to_dict()
+						data['logsource'] = 'LOCAL'
+						data['logtype'] = logobj2type_inv[type(msg)].name
+					writer.write(json.dumps(data).encode() + b'\r\n')
 					await wrtier.drain()
 
 			except Exception as e:
 				await self.logger.exception()
 
+			await self.logger.info('Connection lost! Reconnecting in %ss' % self.retry_timeout)
 			await asyncio.sleep(self.retry_timeout)
 
