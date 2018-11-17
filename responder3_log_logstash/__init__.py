@@ -42,9 +42,10 @@ class logstashHandler(LoggerExtensionTask):
 					except:
 						await self.logger.exception()
 					else:
-						writer.write()
+						writer.write(logline)
+						await writer.drain()
 
-						
+
 			except Exception as e:
 				await self.logger.exception()
 
