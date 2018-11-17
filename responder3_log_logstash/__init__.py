@@ -5,6 +5,7 @@ import traceback
 from responder3.core.logging.logtask import LoggerExtensionTask
 from responder3.core.logging.logger import Logger, r3exception
 from responder3.core.logging.log_objects import *
+from responder3.core.commons import UniversalEncoder
 
 		
 class logstashHandler(LoggerExtensionTask):
@@ -35,7 +36,7 @@ class logstashHandler(LoggerExtensionTask):
 						data = msg.to_dict()
 						data['logsource'] = 'LOCAL'
 						data['logtype'] = logobj2type_inv[type(msg)].name
-					writer.write(json.dumps(data).encode() + b'\r\n')
+					writer.write(json.dumps(data).encode() + b'\r\n', cls=UniversalEncoder)
 					await writer.drain()
 
 			except Exception as e:
