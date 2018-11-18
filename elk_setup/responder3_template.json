@@ -1,0 +1,668 @@
+{
+  "template" : "responder3",
+    "mappings" : {
+      "doc" : {
+        "dynamic_templates" : [
+          {
+            "message_field" : {
+              "path_match" : "message",
+              "match_mapping_type" : "string",
+              "mapping" : {
+                "norms" : false,
+                "type" : "text"
+              }
+            }
+          },
+          {
+            "string_fields" : {
+              "match" : "*",
+              "match_mapping_type" : "string",
+              "mapping" : {
+                "fields" : {
+                  "keyword" : {
+                    "ignore_above" : 256,
+                    "type" : "keyword"
+                  }
+                },
+                "norms" : false,
+                "type" : "text"
+              }
+            }
+          }
+        ],
+        "properties" : {
+          "@timestamp" : {
+            "type" : "date"
+          },
+          "@version" : {
+            "type" : "keyword"
+          },
+          "client_id" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "connection_closed" : {
+            "properties" : {
+              "connection_id" : {
+                "type" : "long"
+              },
+              "disconnect_time" : {
+                "type" : "date"
+              },
+              "local_ip" : {
+                "type" : "ip"
+              },
+              "local_port" : {
+                "type" : "long"
+              },
+              "module" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "remote_dns" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 1024
+                  }
+                }
+              },
+              "remote_ip" : {
+                "type" : "ip"
+              },
+              "remote_port" : {
+                "type" : "long"
+              },
+              "timestamp" : {
+                "type" : "date"
+              },
+              "total_connection_time_s" : {
+                "type" : "float"
+              }
+            }
+          },
+          "connection_id" : {
+            "type" : "long"
+          },
+          "connection_opened" : {
+            "properties" : {
+              "connection_id" : {
+                "type" : "long"
+              },
+              "local_ip" : {
+                "type" : "ip"
+			  },
+              "local_port" : {
+                "type" : "long"
+              },
+              "module" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "remote_dns" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "remote_ip" : {
+                "type" : "ip"
+              },
+              "remote_port" : {
+                "type" : "long"
+              },
+              "timestamp" : {
+                "type" : "date"
+              }
+            }
+          },
+          "connection_timestamp" : {
+            "type" : "date"
+          },
+          "credential" : {
+            "properties" : {
+              "client_addr" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 1024
+                  }
+                }
+              },
+              "client_rdns" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 1024
+                  }
+                }
+              },
+              "connection" : {
+                "properties" : {
+                  "connection_id" : {
+                    "type" : "long"
+                  },
+                  "local_ip" : {
+                    "type" : "ip"
+                  },
+                  "local_port" : {
+                    "type" : "long"
+                  },
+                  "remote_dns" : {
+                    "type" : "text",
+                    "norms" : false,
+                    "fields" : {
+                      "keyword" : {
+                        "type" : "keyword",
+                        "ignore_above" : 256
+                      }
+                    }
+                  },
+                  "remote_ip" : {
+                    "type" : "ip"
+                  },
+                  "remote_port" : {
+                    "type" : "long"
+                  },
+                  "timestamp" : {
+                    "type" : "date"
+                  }
+                }
+              },
+              "credtype" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "fullhash" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 10240
+                  }
+                }
+              },
+              "module" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "password" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "username" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              }
+            }
+          },
+          "dst_geoip" : {
+            "properties" : {
+              "city_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "continent_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_code2" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_code3" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "dma_code" : {
+                "type" : "long"
+              },
+              "ip" : {
+                "type" : "ip"
+              },
+              "latitude" : {
+                "type" : "float"
+              },
+              "location" : {
+                "type" : "geo_point"
+              },
+              "longitude" : {
+                "type" : "float"
+              },
+              "postal_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "region_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "region_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "timezone" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              }
+            }
+          },
+          "geoip" : {
+            "dynamic" : "true",
+            "properties" : {
+              "ip" : {
+                "type" : "ip"
+              },
+              "latitude" : {
+                "type" : "half_float"
+              },
+              "location" : {
+                "type" : "geo_point"
+              },
+              "longitude" : {
+                "type" : "half_float"
+              }
+            }
+          },
+          "host" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "local_ip" : {
+            "type" : "ip"
+          },
+          "local_port" : {
+            "type" : "long"
+          },
+          "log_type" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "logentry" : {
+            "properties" : {
+              "connection" : {
+                "properties" : {
+                  "connection_id" : {
+                    "type" : "long"
+                  },
+                  "local_ip" : {
+                    "type" : "ip"
+                  },
+                  "local_port" : {
+                    "type" : "long"
+                  },
+                  "remote_dns" : {
+                    "type" : "text",
+                    "norms" : false,
+                    "fields" : {
+                      "keyword" : {
+                        "type" : "keyword",
+                        "ignore_above" : 256
+                      }
+                    }
+                  },
+                  "remote_ip" : {
+                    "type" : "ip"
+                  },
+                  "remote_port" : {
+                    "type" : "long"
+                  },
+                  "timestamp" : {
+                    "type" : "date"
+                  }
+                }
+              },
+              "level" : {
+                "type" : "long"
+              },
+              "msg" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              }
+            }
+          },
+          "port" : {
+            "type" : "long"
+          },
+          "remote_dns" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "remote_ip" : {
+            "type" : "ip"
+          },
+          "remote_port" : {
+            "type" : "long"
+          },
+          "src_geoip" : {
+            "properties" : {
+              "city_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "continent_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_code2" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_code3" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "country_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "ip" : {
+                "type" : "ip"
+              },
+              "latitude" : {
+                "type" : "float"
+              },
+              "location" : {
+                "type" : "geo_point"
+              },
+              "longitude" : {
+                "type" : "float"
+              },
+              "postal_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "region_code" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "region_name" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              },
+              "timezone" : {
+                "type" : "text",
+                "norms" : false,
+                "fields" : {
+                  "keyword" : {
+                    "type" : "keyword",
+                    "ignore_above" : 256
+                  }
+                }
+              }
+            }
+          },
+          "tags" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          },
+          "type" : {
+            "type" : "text",
+            "norms" : false,
+            "fields" : {
+              "keyword" : {
+                "type" : "keyword",
+                "ignore_above" : 256
+              }
+            }
+          }
+        }
+      },
+      "_default_" : {
+        "dynamic_templates" : [
+          {
+            "message_field" : {
+              "path_match" : "message",
+              "match_mapping_type" : "string",
+              "mapping" : {
+                "norms" : false,
+                "type" : "text"
+              }
+            }
+          },
+          {
+            "string_fields" : {
+              "match" : "*",
+              "match_mapping_type" : "string",
+              "mapping" : {
+                "fields" : {
+                  "keyword" : {
+                    "ignore_above" : 256,
+                    "type" : "keyword"
+                  }
+                },
+                "norms" : false,
+                "type" : "text"
+              }
+            }
+          }
+        ],
+        "properties" : {
+          "@timestamp" : {
+            "type" : "date"
+          },
+          "@version" : {
+            "type" : "keyword"
+          },
+          "geoip" : {
+            "dynamic" : "true",
+            "properties" : {
+              "ip" : {
+                "type" : "ip"
+              },
+              "latitude" : {
+                "type" : "half_float"
+              },
+              "location" : {
+                "type" : "geo_point"
+              },
+              "longitude" : {
+                "type" : "half_float"
+              }
+            }
+          }
+        }
+      }
+    }
+}
+
+
